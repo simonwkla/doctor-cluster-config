@@ -349,6 +349,24 @@ in
           ./hosts/eliza.nix
         ];
     };
+
+    steve = {
+      nixpkgs.pkgs = pkgs-x86_64-linux;
+      imports =
+        computeNodeModules
+        ++ [
+          ./hosts/steve.nix
+        ];
+    };
+
+    polly = {
+      nixpkgs.pkgs = pkgs-x86_64-linux;
+      imports =
+        computeNodeModules
+        ++ [
+          ./hosts/polly.nix
+        ];
+    };
   };
 
   # Map over the modules to create nixosConfigurations
@@ -356,5 +374,14 @@ in
     nixosSystem {
       modules = [ module ];
     }
-  ) self.nixosModules;
+  ) self.nixosModules // {
+    install-iso-x86_64-linux = import ./pkgs/install-iso {
+      inherit nixpkgs nixosSystem sops-nix inputs;
+      pkgs = pkgs-x86_64-linux;
+    };
+    install-iso-aarch64-linux = import ./pkgs/install-iso {
+      inherit nixpkgs nixosSystem sops-nix inputs;
+      pkgs = pkgs-aarch64-linux;
+    };
+  };
 }

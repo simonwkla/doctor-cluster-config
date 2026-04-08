@@ -80,15 +80,16 @@ in
 
 
       root = {
-        initialHashedPassword = lib.mkIf config.users.withSops null;
+        initialHashedPassword = lib.mkIf config.users.withSops (lib.mkForce null);
         hashedPasswordFile = lib.mkIf config.users.withSops config.sops.secrets.root-password-hash.path;
-        openssh.authorizedKeys.keys = joergsKeys ++ okelmannKeys;
+        openssh.authorizedKeys.keys = joergsKeys ++ okelmannKeys ++ thoreKeys;
       };
     };
 
     nix.settings.trusted-users = [
       "joerg"
       "okelmann"
+      "thore"
     ];
   };
 }
