@@ -17,7 +17,7 @@
           VFIO_DEVICE_CDEV y
         '';
       }
-  ]; 
+  ];
 
   boot.kernelParams = [
     #"mem_encrypt=on"
@@ -29,8 +29,8 @@
 
     # this parameter exists on 6.9-
     "kvm.gmem_2m_enabled=1"
-	"amd_iommu=off"
-	"pcie_acs_override=downstream,multifunction"
+    "amd_iommu=on"
+    "iommu=pt"
   ];
 
   # enable libvirtd service
