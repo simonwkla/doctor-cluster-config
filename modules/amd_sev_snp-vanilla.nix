@@ -30,7 +30,7 @@
     # this parameter exists on 6.9-
     "kvm.gmem_2m_enabled=1"
     "amd_iommu=on"
-    "iommu=pt"
+    "iommu=on"
   ];
 
   # enable libvirtd service
