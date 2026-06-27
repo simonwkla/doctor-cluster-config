@@ -4,6 +4,7 @@
     ../modules/nfs/client.nix
     ../modules/disko-zfs.nix
     ../modules/buildbot/builder.nix
+    ../modules/tribuchet
   ];
 
   networking.hostName = "eliza";
@@ -25,5 +26,4 @@
   systemd.user.extraConfig = ''
     DefaultLimitNOFILE=8192
   '';
-services.envfs.enable = true;
 }

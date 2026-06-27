@@ -22,15 +22,15 @@
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    buildbot-nix.url = "github:nix-community/buildbot-nix";
-    buildbot-nix.inputs.nixpkgs.follows = "nixpkgs";
-    buildbot-nix.inputs.treefmt-nix.follows = "treefmt-nix";
+    nixbot.url = "github:Mic92/nixbot";
+    nixbot.inputs.nixpkgs.follows = "nixpkgs";
+    nixbot.inputs.treefmt-nix.follows = "treefmt-nix";
 
     niks3.url = "github:Mic92/niks3";
     niks3.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,6 +43,7 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
 
     jetpack-nixos.url = "git+https://github.com/TUM-DSE/jetpack-nixos.git?shallow=1&ref=no-overlay";
     jetpack-nixos.inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +57,9 @@
     tincr.url = "github:Mic92/tincr";
     tincr.inputs.nixpkgs.follows = "nixpkgs";
     tincr.inputs.treefmt-nix.follows = "treefmt-nix";
+
+    tribuchet.url = "github:Mic92/tribuchet";
+    tribuchet.inputs.nixpkgs.follows = "nixpkgs";
 
     srvos.url = "github:numtide/srvos";
     # actually not used when using the modules but than nothing ever will try to fetch this nixpkgs variant
@@ -100,7 +104,7 @@
           ./templates
         ];
         perSystem =
-          { self', system, ... }:
+          { self', system, pkgs, ... }:
           {
             _module.args.pkgs = import inputs.nixpkgs {
               inherit system;
@@ -143,8 +147,24 @@
                   )
                 );
                 devShells = lib.mapAttrs' (n: lib.nameValuePair "devShell-${n}") self'.devShells;
+                # Users run home-manager standalone against the system
+                # registry pins, so home-manager/nixpkgs skew breaks
+                # `home-manager switch` without failing any host build.
+                homeManager = {
+                  home-manager-eval =
+                    (inputs.home-manager.lib.homeManagerConfiguration {
+                      inherit pkgs;
+                      modules = [
+                        {
+                          home.username = "ci";
+                          home.homeDirectory = "/home/ci";
+                          home.stateVersion = "26.05";
+                        }
+                      ];
+                    }).activationPackage;
+                };
               in
-              nixosMachines // devShells;
+              nixosMachines // devShells // homeManager;
           };
       }
     )).config.flake;

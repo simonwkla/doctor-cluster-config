@@ -44,12 +44,16 @@ in
       };
       security = {
         disable_gravatar = true;
+        # 26.05 removed the implicit default. This instance only serves
+        # anonymous read-only dashboards and stores no secrets in its DB,
+        # so keeping the well-known previous default is fine.
+        secret_key = "SW2YcwTIb9zpOOhoPsMm";
       };
       users = {
         allow_sign_up = false;
         allow_org_create = false;
         viewers_can_edit = false;
-        home_page = "/d/f833d9a0-24ed-4808-bc90-a874dc9173f3/dse-fpga";
+        home_page = "/d/dse-monitoring/dse-monitoring";
       };
       analytics = {
         reporting_enabled = false;
