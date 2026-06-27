@@ -35,5 +35,5 @@
   systemd.services.auto-reboot.enable = false;
   systemd.services.auto-upgrade.enable = false;
 
-  boot.extraModulePackages = [ config.boot.kernelPackages.mlnx_ofed ];
+  # boot.extraModulePackages = [ config.boot.kernelPackages.mlnx_ofed ];
 }
