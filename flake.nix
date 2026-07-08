@@ -26,7 +26,7 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixbot.url = "github:Mic92/nixbot";
+    nixbot.url = "github:Mic92/nixbot/scheduler-perf";
     nixbot.inputs.nixpkgs.follows = "nixpkgs";
     nixbot.inputs.treefmt-nix.follows = "treefmt-nix";
 
@@ -39,6 +39,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixlib.follows = "nixpkgs";
     };
+
+    crane.url = "github:ipetkov/crane";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
@@ -55,9 +57,12 @@
     tincr.url = "github:Mic92/tincr";
     tincr.inputs.nixpkgs.follows = "nixpkgs";
     tincr.inputs.treefmt-nix.follows = "treefmt-nix";
+    tincr.inputs.crane.follows = "crane";
 
     tribuchet.url = "github:Mic92/tribuchet";
+    tribuchet.inputs.crane.follows = "crane";
     tribuchet.inputs.nixpkgs.follows = "nixpkgs";
+    tribuchet.inputs.treefmt-nix.follows = "treefmt-nix";
 
     srvos.url = "github:numtide/srvos";
     # actually not used when using the modules but than nothing ever will try to fetch this nixpkgs variant
@@ -161,8 +166,19 @@
                       ];
                     }).activationPackage;
                 };
+                # Pin all flake inputs into the binary cache so that
+                # offline/auto-upgrade hosts can fetch them without
+                # re-resolving every git input on each rebuild.
+                flakeInputs = {
+                  flake-inputs = pkgs.linkFarm "flake-inputs" (
+                    lib.mapAttrsToList (name: input: {
+                      inherit name;
+                      path = input.outPath;
+                    }) (lib.filterAttrs (_: input: input ? outPath) inputs)
+                  );
+                };
               in
-              nixosMachines // devShells // homeManager;
+              nixosMachines // devShells // homeManager // flakeInputs;
           };
       }
     )).config.flake;

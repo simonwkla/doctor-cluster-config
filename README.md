@@ -69,18 +69,8 @@ $ inv deploy
 
 # Add new users
 
-Add chair members to [./modules/chair-members.nix](./modules/users/chair-members.nix) and students to [./modules/users/students.nix](./modules/users/students.nix).
-
-For chair members use a uid in the 1000-2000. For new students use a uid in the
-2000-3000 range. Check that the uid is unique across both files and in the
-range between to avoid conflicts.
-
-If you need to give reviewers access i.e. for artifact evaluation, add them to
-[./modules/users/reviewers.nix](./modules/users/reviewers.nix).  We use the
-uid range 4000-5000 there. By using `users.users.<username>.allowedHosts` it's
-possible to limit the hosts these users can access. To access the machine, they
-can use the ssh tunnel as described in
-[here](./docs/hosts#accessing-the-server).
+See the step-by-step guide in [docs/ADD_USER.md](docs/ADD_USER.md) for adding
+chair members, students and reviewers.
 
 # Add new servers
 
@@ -128,5 +118,5 @@ Hosts are monitored here: https://grafana.thalheim.io/d/Y3JuredMz/monitoring?org
 
 # CI
 
-All machines are build by [buildbot](https://buildbot.dse.in.tum.de/) using [buildbot-nix](https://github.com/nix-community/buildbot-nix).
-The resulting builds are uploaded to https://cache.dos.cit.tum.de from where machines can download them while upgrading.
+All machines are build by [nixbot](https://buildbot.dse.in.tum.de/) (the standalone rewrite of [buildbot-nix](https://github.com/Mic92/nixbot)).
+The resulting builds are uploaded to https://niks3.dos.cit.tum.de from where machines can download them while upgrading.

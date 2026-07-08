@@ -102,8 +102,8 @@ Those servers (or individual devices) are sometimes used exclusively by a single
 ## CI servers
 
 Those serve as a github action runner for Systemprogramming + cloud systems lab.
-Astrid also hosts the buildbot master server with Graham as the buildbot worker.
-See [buildbot.md](./buildbot.md) for documentation on how to add repositories and checks.
+Graham runs the nixbot CI service (doctor reverse-proxies it; eliza is an aarch64 remote builder).
+See [nixbot.md](./nixbot.md) for documentation on how to add repositories and checks.
 
 - [astrid](./hosts/astrid.md)
 - [dan](./hosts/dan.md), nfs backup
@@ -339,6 +339,62 @@ If the RGB group asks which networks to connect your machine to, tell them `il01
 
 A graph of how the servers are connected right now can be found [here](./hosts/graph.md).
 
-## Names left to pick
+# Server rack layout
 
--
+Physical position of each server in our racks. For per-host expansion cards see
+[expansion_cards.md](./expansion_cards.md).
+
+> **Last visually verified:** 2026-07-30 
+
+## Room view — all racks
+
+<div align="center">
+
+<pre>
+┌───────────────┐   ┌────┐   ┌────┐   ┌────┐   ┌───────────────┐   ┌───────────────┐
+│               │   │    │   │    │   │    │   │               │   │     vislor    │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │    rose (F)   │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │    amy (F)    │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │   clara (F)   │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │   momiji (F)  │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │    jackson    │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │ christina (S) │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │    adelaide   │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │    wilfred    │
+├───────────────┤   │    │   │    │   │    │   │               │   ├───────────────┤
+│   steve (G)   │   │    │   │    │   │    │   │               │   │     river     │
+├───────────────┤   │    │   │    │   │    │   │               │   ├───────────────┤
+│     eliza     │   │    │   │    │   │    │   │               │   │    jack (G)   │
+├───────────────┤   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │      dan      │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │     astrid    │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │     mickey    │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │      ryan     │
+│               │   │    │   │    │   │    │   │               │   ├───────────────┤
+│               │   │    │   │    │   │    │   │               │   │     graham    │
+│               │   │    │   │    │   │    │   ├───────────────┤   ├───────────────┤
+│               │   │    │   │    │   │    │   │     martha    │   │     yasmin    │
+│               │   │    │   │    │   │    │   ├───────────────┤   ├───────────────┤
+│               │   │    │   │    │   │    │   │   sakura (F)  │   │   hinoki (F)  │
+│               │   │    │   │    │   │    │   ├───────────────┤   ├───────────────┤
+│               │   │    │   │    │   │    │   │     irene     │   │      ian      │
+│               │   │    │   │    │   │    │   ├───────────────┤   ├───────────────┤
+│               │   │    │   │    │   │    │   │     xavier    │   │   jamie (G)   │
+└───────────────┘   └────┘   └────┘   └────┘   └───────────────┘   └───────────────┘
+  leftmost                                                           rightmost
+                                                                 (left row from entry)
+</pre>
+
+</div>
+
