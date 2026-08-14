@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../modules/hardware/poweredge7625.nix
@@ -30,4 +34,10 @@
   networking.hostName = "jamie";
 
   system.stateVersion = "23.05";
+  # temporarily disable auto-reboot until the memsafedb eval has finished running
+  systemd.timers.auto-reboot.enable = false;
+  systemd.services.auto-reboot.enable = false;
+  systemd.services.auto-upgrade.enable = false;
+
+  # boot.extraModulePackages = [ config.boot.kernelPackages.mlnx_ofed ];
 }
