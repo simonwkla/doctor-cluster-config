@@ -108,6 +108,10 @@ let
   marcKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBvkAAmA8/jcrUWyCmVLpXm0zVK0FiH5s92NNL6ZjWb4 space@George"
   ];
+  
+  andreiKeys = [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCc6kci58KP0YherG/i+yLZg5w5+EoVDSdPwp2rbEVRX2zn0ZuEruSFd1S0xR3oucXJnu7a4HlfdOn9eBJsIXr9MB2PJA0KSHUz1hN5RwpwuYO/KoWKQeKgDoHb5cydWKzrL+PsD15rs0Inq/AAHRwEELW6hQuCnuyzhC6HI4phYHgd3QZxahvMCaLz2C1Wwp3m/v0xkjG/0fjyBxyrcwNSeL/YINSNOKnXkKkZtAnSBCOPiQuHE+TpM3UedzlNHCGHRkwlTbHxpeHzB/bD5RV1oDmcnrjfHubszD7KjjkK3fRPb2TgQ8jeovwaclve2Dfh87bp1dqFOARL59wlmLVGlGi3ADkB2PiEu0zkAVjoXimRXw2J7SrOS1UvGlhbPEu7Y1PCjg6hkIZhWnxwJlOZRBLKCQf6P9wlrm/hAhvKr+rauU7tz0RlY2S5eXSBMDtQuGLWwzZDFoukDv1BLPTY0p4ya6AdryvZyMIlsIcDG45Am+rGxZcMGUNtvzda+CJhILr2P51xp6v/yZVDRNHsEhiBFEIHKleNL8/ZFZksnQ93b2kGg8VFYPb6M9RC50Vy/oNY6FxJCqzk6Q7CymXTlSSYeIWPlBekyvnOgder26hcg+nhxY0kZIlhsdjCCDaJoiu/rYXgIBW0M6yjmcH9I1l3pTISjZuN3fl5Uu2QnQ== dabokva@gmail.com"
+  ];
 
   extraGroups = [
     "wheel"
@@ -226,7 +230,7 @@ in
         "steve"
       ];
       openssh.authorizedKeys.keys = yongjieKeys;
-      expires = "2026-06-30";
+      expires = "2026-09-30";
     };
 
     # DB chair PhD working on compiler stuff. Uses the Risc V board for experiments
@@ -287,6 +291,9 @@ in
       allowedHosts = [
         "wilfred"
         "river"
+        "christina"
+        "adelaide"
+        "jackson"
       ];
       openssh.authorizedKeys.keys = raduKeys;
       expires = "2026-10-31";
@@ -302,6 +309,7 @@ in
       allowedHosts = [
         "wilfred"
         "river"
+        "christina"
       ];
       openssh.authorizedKeys.keys = leonKeys;
       expires = "2026-10-31";
@@ -336,7 +344,7 @@ in
         "eliza"
       ];
       openssh.authorizedKeys.keys = hernanKeys;
-      expires = "2026-06-30";
+      expires = "2026-10-31";
     };
 
     # Sandra Stankovic, MSc student working w/ Manos (thesis to finish in Sept 2026)
@@ -486,7 +494,7 @@ in
       isNormalUser = true;
       home = "/home/ivanl";
       inherit extraGroups;
-      shell = "/run/current-system/sw/bin/bash";
+      shell = "/run/current-system/sw/bin/zsh";
       uid = 2106;
       allowedHosts = [
         "xavier"
@@ -529,20 +537,6 @@ in
       expires = "2026-10-30";
     };
 
-    # Kilian Markl, MSc thesis working w/ Anders (can be removed after Jan 2027)
-    kilian = {
-      isNormalUser = true;
-      home = "/home/kilian";
-      inherit extraGroups;
-      shell = "/run/current-system/sw/bin/bash";
-      uid = 2109;
-      allowedHosts = [
-        "graham"
-      ];
-      openssh.authorizedKeys.keys = kilianKeys;
-      expires = "2027-03-01";
-    };
-
     # Marc, Student internship working w/ David (can be removed after Sep 2026)
     marc = {
       isNormalUser = true;
@@ -556,6 +550,35 @@ in
       openssh.authorizedKeys.keys = marcKeys;
       expires = "2026-09-01";
     };
+    
+    # Andrei Dolmatov, BSc thesis w/ Aleksandra (can be removed after Oct 2026)
+    andrei = {
+      isNormalUser = true;
+      home = "/home/andrei";
+      inherit extraGroups;
+      shell = "/run/current-system/sw/bin/bash";
+      uid = 2012;
+      allowedHosts = [
+        "jamie"
+	"jack"
+      ];
+      openssh.authorizedKeys.keys = andreiKeys;
+      expires = "2026-10-31";
+    };
+    
+    # Kilian Markl, MSc thesis working w/ Anders (can be removed after Jan 2027)
+    markl = {
+      isNormalUser = true;
+      home = "/home/markl";
+      inherit extraGroups;
+      shell = "/run/current-system/sw/bin/bash";
+      uid = 2113;
+      allowedHosts = [
+        "graham"
+      ];
+      openssh.authorizedKeys.keys = kilianKeys;
+      expires = "2027-03-01";
+    };
   };
 
   # DANGER ZONE!
@@ -563,6 +586,7 @@ in
   # delete all data of the associated user
   # - If you reactivate a user, then make sure to use the same uid as before
   # to avoid any permission issues
+  # - Garbage collect deleted users manually one year after deletion to free the username again
   users.deletedUsers = [
     "alexa"
     "alexander"

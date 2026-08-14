@@ -9,7 +9,7 @@
     ../modules/amd_sev_snp.nix
     ../modules/xilinx.nix
     ../modules/xrdp.nix
-    ../modules/monitoring/fpga-dashboard
+    # ../modules/monitoring/fpga-dashboard # see email to admins from 13.08.2026
   ];
 
   networking.hostName = "clara";
@@ -21,6 +21,8 @@
   disko.rootDisk = "/dev/disk/by-id/nvme-SAMSUNG_MZQL21T9HCJR-00A07_S64GNA0T724988";
 
   boot.hugepages1GB.number = 8;
+
+  hardware.xilinx.coyote-driver.enable = true;
 
   simd.arch = "znver3";
   system.stateVersion = "22.11";

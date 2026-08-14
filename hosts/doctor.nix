@@ -35,11 +35,12 @@
     ../modules/borgbackup-repos
     ../modules/buildbot/reverse-proxy.nix
     ../modules/niks3/reverse-proxy.nix
-    ../modules/monitoring/prometheus
+    # ../modules/monitoring/prometheus # see email to admins from 13.08.2026
     ../modules/monitoring/loki.nix
     ../modules/monitoring/telegraf.nix
-    ../modules/monitoring/grafana-proxy.nix
-    ../modules/lrz-gitlab-classroom/frontend.nix
+    # ../modules/monitoring/grafana-proxy.nix # see email to admins from 13.08.2026
+    # disabled for now since the download is gone
+    #../modules/lrz-gitlab-classroom/frontend.nix
   ];
 
   simd.arch = "broadwell";

@@ -11,6 +11,7 @@
     ../modules/nvidia.nix
     ../modules/intel_tdx.nix
     ../modules/vfio/iommu-intel.nix
+    ../modules/ccache.nix
   ];
 
   disko.rootDisk = "/dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_S64HNN0XA09313";
